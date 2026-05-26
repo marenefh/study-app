@@ -90,12 +90,12 @@ export default function Home({ subjects, sessions, onNavigate, onAddSubject, onD
   }
 
   return (
-    <div style={{ maxWidth: '960px', margin: '0 auto', padding: '40px 24px' }}>
+    <div style={{ maxWidth: '960px', margin: '0 auto', padding: '30px 24px 40px' }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '28px', gap: '16px' }}>
         <div>
-          <h1 style={{ fontSize: '28px', fontWeight: '800', color: 'var(--text)', letterSpacing: '-0.01em' }}>
-            Summer Exams
+          <h1 style={{ fontSize: '21px', fontWeight: '700', color: 'var(--text)', letterSpacing: '0.04em' }}>
+            SUMMER EXAMS
           </h1>
           {!editMode && overallStats.totalSessions > 0 && (
             <div style={{

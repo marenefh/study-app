@@ -69,43 +69,6 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
-      <header style={{
-        borderBottom: '1px solid var(--border)',
-        background: 'rgba(255,255,255,0.85)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
-      }}>
-        <div style={{
-          maxWidth: '960px',
-          margin: '0 auto',
-          padding: '0 24px',
-          height: '52px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
-          <button
-            onClick={goHome}
-            style={{
-              background: 'none',
-              fontSize: '15px',
-              fontWeight: '700',
-              color: 'var(--text)',
-              letterSpacing: '-0.01em',
-              cursor: currentSubject ? 'pointer' : 'default',
-            }}
-          >
-            Study Tracker
-          </button>
-          <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: '500' }}>
-            Summer 2026
-          </span>
-        </div>
-      </header>
-
       <main>
         {currentSubject && currentSubjectData ? (
           <SubjectDetail
