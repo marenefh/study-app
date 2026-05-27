@@ -112,37 +112,43 @@ export default function SessionForm({ onAdd }) {
         </div>
       </div>
 
-      <div>
-        <label style={labelStyle}>Material</label>
-        <input
-          type="text"
-          value={form.label}
-          onChange={e => set('label', e.target.value)}
-          style={inputStyle}
-        />
+      <div style={{ display: 'flex', alignItems: 'flex-end', gap: '10px' }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <label style={labelStyle}>Material</label>
+          <input
+            type="text"
+            value={form.label}
+            onChange={e => set('label', e.target.value)}
+            style={inputStyle}
+          />
+        </div>
+        <button
+          type="submit"
+          style={{
+            flexShrink: 0,
+            padding: '9px 16px',
+            background: '#C4DFE5',
+            color: '#1e3a40',
+            borderRadius: 'var(--radius-sm)',
+            fontSize: '18px',
+            lineHeight: 1,
+            fontWeight: '600',
+            transition: 'background 0.15s',
+            height: '40px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onMouseOver={e => (e.currentTarget.style.background = '#a8cfd8')}
+          onMouseOut={e => (e.currentTarget.style.background = '#C4DFE5')}
+        >
+          ᯓ★
+        </button>
       </div>
 
       {error && (
         <p style={{ fontSize: '13px', color: '#ef4444', margin: 0 }}>{error}</p>
       )}
-
-      <button
-        type="submit"
-        style={{
-          alignSelf: 'flex-end',
-          padding: '9px 20px',
-          background: '#C4DFE5',
-          color: '#1e3a40',
-          borderRadius: 'var(--radius-sm)',
-          fontSize: '14px',
-          fontWeight: '600',
-          transition: 'background 0.15s',
-        }}
-        onMouseOver={e => (e.currentTarget.style.background = '#a8cfd8')}
-        onMouseOut={e => (e.currentTarget.style.background = '#C4DFE5')}
-      >
-        Log Session
-      </button>
     </form>
   )
 }

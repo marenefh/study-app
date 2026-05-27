@@ -264,26 +264,8 @@ export default function SessionTable({ sessions, onEdit, onDelete }) {
                 />
               </div>
 
-              {/* Footer: Save | Delete | ··· Cancel */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '4px' }}>
-                <button
-                  type="submit"
-                  style={{
-                    padding: '9px 18px',
-                    background: '#C4DFE5',
-                    color: '#1e3a40',
-                    borderRadius: 'var(--radius-sm)',
-                    fontSize: '14px',
-                    fontWeight: '600',
-                    transition: 'background 0.15s',
-                    whiteSpace: 'nowrap',
-                  }}
-                  onMouseOver={e => (e.currentTarget.style.background = '#a8cfd8')}
-                  onMouseOut={e => (e.currentTarget.style.background = '#C4DFE5')}
-                >
-                  Save changes
-                </button>
-
+              {/* Footer: Delete (left) | Save (right) */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '4px' }}>
                 <button
                   type="button"
                   onClick={handleDelete}
@@ -304,20 +286,21 @@ export default function SessionTable({ sessions, onEdit, onDelete }) {
                 </button>
 
                 <button
-                  type="button"
-                  onClick={() => setEditingSession(null)}
+                  type="submit"
                   style={{
-                    padding: '9px 16px',
-                    background: 'none',
-                    border: '1.5px solid var(--border)',
+                    padding: '9px 18px',
+                    background: '#C4DFE5',
+                    color: '#1e3a40',
                     borderRadius: 'var(--radius-sm)',
                     fontSize: '14px',
-                    color: 'var(--text-secondary)',
-                    marginLeft: 'auto',
+                    fontWeight: '600',
+                    transition: 'background 0.15s',
                     whiteSpace: 'nowrap',
                   }}
+                  onMouseOver={e => (e.currentTarget.style.background = '#a8cfd8')}
+                  onMouseOut={e => (e.currentTarget.style.background = '#C4DFE5')}
                 >
-                  Cancel
+                  Save changes
                 </button>
               </div>
             </form>

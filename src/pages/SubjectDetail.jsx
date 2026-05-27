@@ -101,7 +101,7 @@ export default function SubjectDetail({ subject, sessions, onAdd, onEdit, onDele
           )}
         </div>
 
-        {/* Row 2: date/time + countdown, full width */}
+        {/* Row 2: date + countdown, full width */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
           <p style={{ fontSize: '14px', color: 'var(--text-muted)', margin: 0 }}>
             {formatExamDate(subject.examDate)}
@@ -156,7 +156,7 @@ export default function SubjectDetail({ subject, sessions, onAdd, onEdit, onDele
       {/* Stats row */}
       {sessions.length > 0 && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '14px' }}>
-          <StatCard label="Total hours" value={`${stats.totalHours.toFixed(1)}h`} />
+          <StatCard label="Total" value={`${stats.totalHours.toFixed(1)}h`} />
           <StatCard label="Avg score" value={stats.avgPct !== null ? `${Math.round(stats.avgPct)}%` : '—'} />
           <StatCard label="Sessions" value={sessions.length} />
         </div>
@@ -176,7 +176,7 @@ export default function SubjectDetail({ subject, sessions, onAdd, onEdit, onDele
 
       {/* Sessions table */}
       {sessions.length > 0 && (
-        <Section title={`All sessions (${sessions.length})`}>
+        <Section title="All sessions">
           <SessionTable sessions={sessions} onEdit={onEdit} onDelete={onDelete} />
         </Section>
       )}
@@ -228,8 +228,18 @@ function StatCard({ label, value }) {
   )
 }
 
+function ordinal(n) {
+  const v = n % 100
+  if (v >= 11 && v <= 13) return 'th'
+  return ['th', 'st', 'nd', 'rd'][n % 10] || 'th'
+}
+
 function formatExamDate(dateStr) {
-  return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-GB', {
-    weekday: 'long', day: 'numeric', month: 'long',
-  })
+  const d = new Date(dateStr + 'T00:00:00')
+  const weekday = d.toLocaleDateString('en-US', { weekday: 'long' })
+  const month = d.toLocaleDateString('en-US', { month: 'long' })
+  const day = d.getDate()
+  return (
+    <>{weekday}, {month} {day}<sup style={{ fontSize: '0.65em', verticalAlign: 'super', lineHeight: 0 }}>{ordinal(day)}</sup></>
+  )
 }

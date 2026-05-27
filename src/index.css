@@ -53,21 +53,23 @@ a {
   text-decoration: none;
 }
 
-/* Form grid: side-by-side on desktop, stacked on mobile */
+/* Form grid: side-by-side on all screen sizes */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
-@media (max-width: 520px) {
-  .form-row {
-    grid-template-columns: 1fr;
-  }
+/* Grid items must opt out of min-width:auto so 1fr cells can shrink on iOS */
+.form-row > div {
+  min-width: 0;
+  overflow: hidden;
 }
 
-/* Prevent date/number inputs from overflowing their grid cell on iOS */
+/* Inputs fill their cell and cannot overflow it */
 .form-row input {
   min-width: 0;
+  max-width: 100%;
   width: 100%;
+  box-sizing: border-box;
 }

@@ -85,22 +85,20 @@ export default function SubjectCard({ subject, sessions, onClick }) {
         <Stat
           label="Last session"
           value={stats.lastSession ? relativeDate(stats.lastSession.date) : '—'}
+          valueColor={stats.lastSession && daysSince(stats.lastSession.date) >= 7 ? '#ef4444' : undefined}
         />
-        {sessions.length > 0 && (
-          <Stat label="Sessions" value={sessions.length} />
-        )}
       </div>
     </button>
   )
 }
 
-function Stat({ label, value }) {
+function Stat({ label, value, valueColor }) {
   return (
     <div>
       <div style={{ fontSize: '10.5px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: '600', marginBottom: '2px' }}>
         {label}
       </div>
-      <div style={{ fontSize: '14px', fontWeight: '700', color: 'var(--text)' }}>
+      <div style={{ fontSize: '14px', fontWeight: '700', color: valueColor || 'var(--text)' }}>
         {value}
       </div>
     </div>
@@ -111,13 +109,15 @@ function formatShortDate(dateStr) {
   return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
 }
 
-function relativeDate(dateStr) {
+function daysSince(dateStr) {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
-  const d = new Date(dateStr + 'T00:00:00')
-  const diff = Math.round((today - d) / (1000 * 60 * 60 * 24))
+  return Math.round((today - new Date(dateStr + 'T00:00:00')) / (1000 * 60 * 60 * 24))
+}
+
+function relativeDate(dateStr) {
+  const diff = daysSince(dateStr)
   if (diff === 0) return 'Today'
   if (diff === 1) return 'Yesterday'
-  if (diff < 7) return `${diff}d ago`
-  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
+  return `${diff} days ago`
 }

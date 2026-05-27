@@ -92,56 +92,53 @@ export default function Home({ subjects, sessions, onNavigate, onAddSubject, onD
   return (
     <div style={{ maxWidth: '960px', margin: '0 auto', padding: '30px 24px 40px' }}>
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '28px', gap: '16px' }}>
-        <div>
-          <h1 style={{ fontSize: '21px', fontWeight: '700', color: 'var(--text)', letterSpacing: '0.04em' }}>
-            SUMMER EXAMS
-          </h1>
-          {!editMode && overallStats.totalSessions > 0 && (
-            <div style={{
-              display: 'inline-flex',
-              gap: '24px',
-              marginTop: '12px',
-              padding: '10px 16px',
-              background: 'var(--white)',
-              border: '1.5px solid var(--border)',
-              borderRadius: 'var(--radius-sm)',
-              boxShadow: 'var(--shadow-sm)',
-            }}>
-              <MiniStat label="Total hours" value={`${overallStats.totalHours.toFixed(1)}h`} />
-              <div style={{ width: '1px', background: 'var(--border)' }} />
-              <MiniStat label="Sessions" value={overallStats.totalSessions} />
-            </div>
-          )}
-        </div>
+      <div style={{ marginBottom: '28px' }}>
+        <h1 style={{ fontSize: '21px', fontWeight: '700', color: 'var(--text)', letterSpacing: '0.04em', textAlign: 'center', marginBottom: '16px' }}>
+          SUMMER EXAMS
+        </h1>
 
-        {/* Edit / Done button */}
-        <button
-          onClick={() => editMode ? exitEditMode() : enterEditMode()}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '7px',
-            padding: '8px 16px',
-            background: editMode ? 'var(--text)' : 'var(--white)',
-            border: `1.5px solid ${editMode ? 'var(--text)' : 'var(--border)'}`,
-            borderRadius: 'var(--radius-sm)',
-            fontSize: '13.5px',
-            fontWeight: '600',
-            color: editMode ? 'white' : 'var(--text-secondary)',
-            cursor: 'pointer',
-            transition: 'all 0.15s',
-            whiteSpace: 'nowrap',
-            flexShrink: 0,
-          }}
-        >
-          {editMode ? 'Done' : (
-            <>
-              <PencilIcon size={14} />
-              Edit Exams
-            </>
-          )}
-        </button>
+        {/* Stats bar — always visible, 3 columns */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'stretch',
+          background: 'var(--white)',
+          border: '1.5px solid var(--border)',
+          borderRadius: 'var(--radius-sm)',
+          boxShadow: 'var(--shadow-sm)',
+          overflow: 'hidden',
+        }}>
+          <div style={{ padding: '10px 16px', flex: 1 }}>
+            <MiniStat
+              label="Total hours"
+              value={overallStats.totalHours > 0 ? `${overallStats.totalHours.toFixed(1)}h` : '0h'}
+            />
+          </div>
+          <div style={{ width: '1px', background: 'var(--border)', flexShrink: 0 }} />
+          <div style={{ padding: '10px 16px', flex: 1 }}>
+            <MiniStat label="Sessions" value={overallStats.totalSessions || 0} />
+          </div>
+          <div style={{ width: '1px', background: 'var(--border)', flexShrink: 0 }} />
+          <button
+            onClick={() => editMode ? exitEditMode() : enterEditMode()}
+            style={{
+              padding: '0 20px',
+              background: editMode ? 'var(--text)' : 'none',
+              color: editMode ? 'white' : 'var(--text-secondary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '13px',
+              fontWeight: '600',
+              flexShrink: 0,
+              transition: 'background 0.15s, color 0.15s',
+              whiteSpace: 'nowrap',
+            }}
+            onMouseOver={e => { if (!editMode) e.currentTarget.style.color = 'var(--accent)' }}
+            onMouseOut={e => { if (!editMode) e.currentTarget.style.color = 'var(--text-secondary)' }}
+          >
+            {editMode ? 'Done' : <PencilIcon size={15} />}
+          </button>
+        </div>
       </div>
 
       {/* Normal mode: card grid */}
