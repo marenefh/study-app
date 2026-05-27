@@ -66,7 +66,7 @@ export default function SessionForm({ onAdd }) {
 
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+      <div className="form-row">
         <div>
           <label style={labelStyle}>Date</label>
           <input
@@ -89,7 +89,7 @@ export default function SessionForm({ onAdd }) {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+      <div className="form-row">
         <div>
           <label style={labelStyle}>Score</label>
           <input
