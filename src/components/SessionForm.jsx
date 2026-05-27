@@ -32,6 +32,7 @@ export default function SessionForm({ onAdd }) {
     label: '',
   })
   const [error, setError] = useState('')
+  const [dateFocused, setDateFocused] = useState(false)
 
   function set(field, val) {
     setForm(f => ({ ...f, [field]: val }))
@@ -69,13 +70,37 @@ export default function SessionForm({ onAdd }) {
       <div className="form-row">
         <div>
           <label style={labelStyle}>Date</label>
-          <input
-            type="date"
-            value={form.date}
-            max={today()}
-            onChange={e => set('date', e.target.value)}
-            style={inputStyle}
-          />
+          <div style={{
+            ...inputStyle,
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            cursor: 'pointer',
+            ...(dateFocused ? {
+              borderColor: 'var(--accent)',
+              boxShadow: '0 0 0 3px rgba(91,115,245,0.12)',
+            } : {}),
+          }}>
+            <span style={{ pointerEvents: 'none' }}>
+              {form.date ? formatShortDate(form.date) : ''}
+            </span>
+            <input
+              type="date"
+              value={form.date}
+              max={today()}
+              onChange={e => set('date', e.target.value)}
+              onFocus={() => setDateFocused(true)}
+              onBlur={() => setDateFocused(false)}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                opacity: 0,
+                width: '100%',
+                height: '100%',
+                cursor: 'pointer',
+              }}
+            />
+          </div>
         </div>
         <div>
           <label style={labelStyle}>Time spent (min)</label>
@@ -151,4 +176,10 @@ export default function SessionForm({ onAdd }) {
       )}
     </form>
   )
+}
+
+function formatShortDate(dateStr) {
+  return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-GB', {
+    day: 'numeric', month: 'short',
+  })
 }
